@@ -9,12 +9,13 @@
 // In App.js in a new project
 
 import * as React from 'react';
-import { Button, View, Text } from 'react-native';
+import { Button, View, Text, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 import TodoScreen from './src/screens/Todos'
 
@@ -54,9 +55,19 @@ function DetailsScreen({ navigation }) {
 
 function MapScreen() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Map</Text>
-    </View>
+    <View style={styles.container}>
+    <MapView
+      provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+      style={styles.map}
+      region={{
+        latitude: 37.78825,
+        longitude: -122.4324,
+        latitudeDelta: 0.015,
+        longitudeDelta: 0.0121,
+      }}
+    >
+    </MapView>
+  </View>
   )
 }
 
@@ -136,5 +147,18 @@ function App() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    ...StyleSheet.absoluteFillObject,
+    height: '100%',
+   // width: 400,
+    //justifyContent: 'flex-end',
+    //alignItems: 'center',
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
+ });
 
 export default App;
